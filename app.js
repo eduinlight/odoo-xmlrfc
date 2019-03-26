@@ -6,6 +6,7 @@ let bodyParser = require('body-parser')
 let bluebird = require('bluebird')
 let helmet = require('helmet')
 let uploader = require('express-fileupload')
+let path = require('path')
 let cors = require('cors')
 let middlewares = require('./utils/middlewares')
 
@@ -15,9 +16,6 @@ app.enable('strict routing')
 
 //SECURITY
 app.use(helmet())
-
-//CONFIGURACION DE CORREO
-mail.extend(app, config.email)
 
 //CONFIGURACION DEL LOGGER
 app.use(logger('dev'))
@@ -45,11 +43,10 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 //middleware para subir ficheros
 app.use(uploader())
 
-//TIPOS DE RESPUESTAS
-app.use(middlewares.responses)
-
 //CONFIGURACION DE LAS RUTAS
-app.use(routes)
+app.get('/test', (req, res, next) => {
+  res.send("todo ok");
+})
 
 //CONFIGURACION PARA ERRORES
 // catch 404 and forward to error handler
